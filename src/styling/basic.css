@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.secondHalf {
+  width: 50%;
+  background-color: #4d79ff;
+  text-align: center;
+}
+
+.firstHalf {
+  width: 50%;
+  background-color: #e0e0d1;
+}
+
+.login {
+  margin-top: 30%;
+}
+
+.logoTech {
+  margin-top: 40%;
+  font-size: large;
+  color: #e0e0d1;
+}
+
+.loginBody {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.loginform {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 40%;
+}
+
+.loginIcon {
+  margin-right: 2px;
+  margin-top: 20px;
+}
+
+.loginButton {
+  margin-left: 300px;
+  width: 100px;
+  background-color: #4d79ff;
+}
+
+.loginTextField {
+  display: flex;
+  margin: auto;
+}
+
+.userDetails {
+  width: 100%;
+  display: flex;
+  text-align: center;
+}
