@@ -7,7 +7,6 @@ export default function Footer() {
         display: "flex",
         justifyContent: "end",
         backgroundColor: "#4d79ff",
-        marginTop: "auto",
         textAlign: "end",
       }}
     >
