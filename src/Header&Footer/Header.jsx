@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-
+import { useSelector, useDispatch } from "react-redux";
 import Modal from "@mui/material/Modal";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
-
+import { removeLoggedIn } from "../store/store";
 import Tooltip from "@mui/material/Tooltip";
 
 const style = {
@@ -28,21 +28,22 @@ const style = {
 
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);
+  const Dispatch = useDispatch();
 
   const Navigate = useNavigate();
-
+  const loguser = useSelector((state) => state.loggedIn);
+  console.log(loguser);
   const handleOpenModal = () => setOpenModal(true);
   function No() {
     setOpenModal(false);
     setAnchorEl(null);
   }
 
-  function Yes() {
-    localStorage.clear();
-    Navigate("/login");
+  async function Yes() {
+    Dispatch(removeLoggedIn());
+    Navigate("/");
   }
   const handleCloseModal = () => setOpenModal(false);
-  let loggedInUserName = JSON.parse(localStorage.getItem("loggedInUser"));
 
   const [anchorEl, setAnchorEl] = useState(null);
   const openDialog = Boolean(anchorEl);
@@ -79,7 +80,7 @@ export default function Header() {
               >
                 <div style={{ display: "flex" }}>
                   <Avatar sx={{ width: 32, height: 32 }}>
-                    {loggedInUserName.name[0]}
+                    {`${loguser.name}`[0]}
                   </Avatar>
                   <div
                     style={{
@@ -89,7 +90,7 @@ export default function Header() {
                       color: "#ebebe0",
                     }}
                   >
-                    <b>{loggedInUserName.name}</b>
+                    <b>{loguser.name}</b>
                   </div>
                 </div>
               </IconButton>
@@ -136,7 +137,12 @@ export default function Header() {
                 <Logout fontSize="small" />
               </ListItemIcon>
               <div>
-                <Button onClick={handleOpenModal}>Logout</Button>
+                <Button
+                  onClick={handleOpenModal}
+                  style={{ color: "gray" }}
+                >
+                  Logout
+                </Button>
                 <Modal
                   open={openModal}
                   onClose={handleCloseModal}
