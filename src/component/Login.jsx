@@ -43,12 +43,11 @@ export default function Login() {
     <div className="loginBody">
       {isLoggedIn ? (
         <div style={{ marginTop: "18%", width: "50%" }}>
-          <div style={{ marginLeft: "250px" }}>
+          <div style={{ marginLeft: "0px" }}>
             <div
               style={{
                 fontSize: "medium",
-                border: "1px solid gray",
-                width: "250px",
+
                 height: "auto",
                 textAlign: "center",
                 padding: "5px",
