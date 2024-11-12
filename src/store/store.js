@@ -7,6 +7,9 @@ const users = createSlice({
     addUser(state, action) {
       state.data = action.payload;
     },
+    clearUser(state, action) {
+      state.data = null;
+    },
   },
 });
 
@@ -16,6 +19,9 @@ const tasks = createSlice({
   reducers: {
     addTask(state, action) {
       state.taskData = action.payload;
+    },
+    clearTask(state, action) {
+      state.taskData = null;
     },
   },
 });
@@ -58,9 +64,9 @@ const store = configureStore({
 
 export { store };
 
-export const { addUser } = users.actions;
+export const { addUser, clearUser } = users.actions;
 
-export const { addTask } = tasks.actions;
+export const { addTask, clearTask } = tasks.actions;
 
 export const { addLoggedIn, removeLoggedIn } = loggedInuser.actions;
 

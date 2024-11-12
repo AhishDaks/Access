@@ -2,17 +2,14 @@ import { useSelector } from "react-redux";
 
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import DetailsModal from "./ModalForTaskDesc";
+import DetailsModal from "../Modal/ModalForTaskDesc";
+import "@fontsource/roboto/700.css";
 export default function TaskDetails() {
   const [open, setOpen] = useState();
   const { id } = useParams();
   const overAllTaskLists = useSelector((state) => state.task.taskData);
 
-  const tasksList = overAllTaskLists.filter(
-    (a) => a.assignedTo === parseInt(id),
-  );
-
-  if (tasksList.length === 0) {
+  if (overAllTaskLists === null) {
     return (
       <div
         style={{
@@ -22,13 +19,16 @@ export default function TaskDetails() {
           marginRight: "3%",
           borderRadius: "10px",
           width: "70%",
-          height: "460px",
+          height: "450px",
         }}
       >
         <b>NOTHING TO DISPLAY</b>
       </div>
     );
   }
+  const tasksList = overAllTaskLists.filter(
+    (a) => a.assignedTo === parseInt(id),
+  );
   const listOftasks = tasksList.map((s) => (
     <div
       style={{

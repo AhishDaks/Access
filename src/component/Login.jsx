@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoIosMail } from "react-icons/io";
 import { RiLockPasswordFill } from "react-icons/ri";
 import TextField from "@mui/material/TextField";
@@ -8,6 +8,7 @@ import { fetchTask } from "../services/taskDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { filterDesiredUser } from "../services/filteringUsers";
+import "@fontsource/roboto/500.css";
 import {
   addUser,
   addLoggedIn,
@@ -19,25 +20,25 @@ export default function Login() {
   const [mail, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [render, setRender] = useState(false);
   const Dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn);
-  useEffect(() => {
-    async function callFetch() {
-      const userResult = await fetchUsers();
-      const taskResult = await fetchTask();
-      Dispatch(addUser(userResult));
-      Dispatch(addTask(taskResult));
-    }
-    callFetch();
-  }, []);
 
   const Navigate = useNavigate();
-  const users = useSelector((state) => state.user.data);
 
-  function Authentication(e) {
+  async function Authentication(e) {
     e.preventDefault();
 
-    const t = users.filter((a) => a.email === mail && a.password === password);
+    const userResult = await fetchUsers();
+    const taskResult = await fetchTask();
+    Dispatch(addUser(userResult));
+    Dispatch(addTask(taskResult));
+
+    setRender(!render);
+
+    const t = userResult.filter(
+      (a) => a.email === mail && a.password === password,
+    );
 
     if (!t.length) {
       setError(true);
@@ -47,7 +48,7 @@ export default function Login() {
       Dispatch(addLoggedIn(...t));
       if (t[0].isManager === true) {
         let employeesData = t[0].employees.map((a) =>
-          filterDesiredUser(users, a),
+          filterDesiredUser(userResult, a),
         );
 
         Dispatch(addDesiredEmployee(employeesData));

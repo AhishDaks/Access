@@ -28,6 +28,7 @@ export default function BasicDetails() {
             borderRadius: "5px",
             display: "flex",
             flexDirection: "column",
+            border: "1px solid gray",
             justifyContent: "space-evenly",
           }}
         >
@@ -35,7 +36,8 @@ export default function BasicDetails() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "3px",
+              marginLeft: "30px",
+              marginRight: "30px",
             }}
           >
             <div>
@@ -47,7 +49,8 @@ export default function BasicDetails() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "3px",
+              marginLeft: "30px",
+              marginRight: "30px",
             }}
           >
             <div>
@@ -59,7 +62,8 @@ export default function BasicDetails() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "3px",
+              marginLeft: "30px",
+              marginRight: "30px",
             }}
           >
             <div>
@@ -71,7 +75,8 @@ export default function BasicDetails() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "3px",
+              marginLeft: "30px",
+              marginRight: "30px",
             }}
           >
             <div>
@@ -85,7 +90,8 @@ export default function BasicDetails() {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "3px",
+              marginLeft: "30px",
+              marginRight: "30px",
             }}
           >
             <div>

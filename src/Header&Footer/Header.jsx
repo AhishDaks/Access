@@ -10,7 +10,12 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
-import { removeLoggedIn, removeDesiredEmployee } from "../store/store";
+import {
+  removeLoggedIn,
+  removeDesiredEmployee,
+  clearTask,
+  clearUser,
+} from "../store/store";
 import Tooltip from "@mui/material/Tooltip";
 
 const style = {
@@ -43,6 +48,8 @@ export default function Header() {
   async function Yes() {
     Dispatch(removeDesiredEmployee());
     Dispatch(removeLoggedIn());
+    Dispatch(clearTask());
+    Dispatch(clearUser());
     Navigate("/");
   }
   const handleCloseModal = () => setOpenModal(false);
@@ -135,7 +142,7 @@ export default function Header() {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem>
-              <ListItemIcon>
+              <ListItemIcon onClick={handleOpenModal}>
                 <Logout fontSize="small" />
               </ListItemIcon>
               <div>
