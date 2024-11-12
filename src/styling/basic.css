@@ -1,6 +1,10 @@
+html {
+  height: 100%;
+}
 body {
   margin: 0;
   display: flex;
+  min-height: 100%;
   flex-direction: column;
 }
 
@@ -69,4 +73,12 @@ body {
   color: #e0e0d1;
   border: 0.5 solid grey;
   border-radius: 10%;
+}
+
+.ICON:hover {
+  background-color: #4d79ff;
+  color: #e0e0d1;
+  border: 0.5 solid grey;
+  border-radius: 10%;
+  padding: 2px;
 }

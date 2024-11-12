@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { filterDesiredUser } from "../services/filteringUsers";
 export default function Coworkers() {
   const Navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.loggedIn);
@@ -12,7 +12,7 @@ export default function Coworkers() {
       Navigate("/");
     }
   }, []);
-  console.log(isLoggedIn);
+
   const { id } = useParams();
 
   const fetchDesiredUser = useSelector((state) => state.user.data);
@@ -44,8 +44,8 @@ export default function Coworkers() {
       </div>
     );
   }
-  const detailsPageUser = fetchDesiredUser.filter((a) => a.id === parseInt(id));
-  console.log(detailsPageUser[0]);
+  const detailsPageUser = filterDesiredUser(fetchDesiredUser, id);
+
   const managerDetails = fetchDesiredUser.filter(
     (a) => a.id === detailsPageUser[0].managerId,
   );
@@ -56,7 +56,7 @@ export default function Coworkers() {
     let name = detailsPageUser[0].employees.map((a) =>
       fetchDesiredUser.filter((b) => a === b.id),
     );
-    console.log(name);
+
     employeesUnder = name.map((a) => (
       <div
         style={{
@@ -78,7 +78,6 @@ export default function Coworkers() {
         <div>{a[0].id}</div>
       </div>
     ));
-    console.log(employeesUnder);
   } else {
     let u = managerDetails[0].employees.filter(
       (a) => a !== detailsPageUser[0].id,
@@ -128,7 +127,7 @@ export default function Coworkers() {
       )}
       {!detailsPageUser[0].isManager ? (
         <div>
-          <b>CO-WORKERS:</b>{" "}
+          <b>CO-WORKERS</b>{" "}
           <div
             style={{
               display: "flex",

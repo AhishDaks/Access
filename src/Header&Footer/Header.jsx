@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
-import { removeLoggedIn } from "../store/store";
+import { removeLoggedIn, removeDesiredEmployee } from "../store/store";
 import Tooltip from "@mui/material/Tooltip";
 
 const style = {
@@ -18,10 +18,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
-  height: 80,
+  width: "auto",
+  height: 50,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
+  borderRadius: "10px",
   boxShadow: 24,
   p: 4,
 };
@@ -32,7 +33,7 @@ export default function Header() {
 
   const Navigate = useNavigate();
   const loguser = useSelector((state) => state.loggedIn);
-  console.log(loguser);
+
   const handleOpenModal = () => setOpenModal(true);
   function No() {
     setOpenModal(false);
@@ -40,6 +41,7 @@ export default function Header() {
   }
 
   async function Yes() {
+    Dispatch(removeDesiredEmployee());
     Dispatch(removeLoggedIn());
     Navigate("/");
   }

@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { filterDesiredUser } from "../services/filteringUsers";
+
 export default function BasicDetails() {
   const { id } = useParams();
   const fetchDesiredUser = useSelector((state) => state.user.data);
-  console.log(fetchDesiredUser);
-  const detailsPageUser = fetchDesiredUser.filter((a) => a.id === parseInt(id));
+  const detailsPageUser = filterDesiredUser(fetchDesiredUser, id);
 
   return (
     <div

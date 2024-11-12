@@ -12,10 +12,10 @@ const users = createSlice({
 
 const tasks = createSlice({
   name: "tasks",
-  initialState: [],
+  initialState: { taskData: null },
   reducers: {
     addTask(state, action) {
-      state.push(...state, ...action.payload);
+      state.taskData = action.payload;
     },
   },
 });
@@ -32,11 +32,27 @@ const loggedInuser = createSlice({
     },
   },
 });
+
+const employeesUnder = createSlice({
+  name: "employeeunder",
+  initialState: null,
+  reducers: {
+    addDesiredEmployee(state, action) {
+      let employeeData = action.payload.map((a) => a[0]);
+      return employeeData;
+    },
+    removeDesiredEmployee(state, action) {
+      return null;
+    },
+  },
+});
+
 const store = configureStore({
   reducer: {
     user: users.reducer,
     task: tasks.reducer,
     loggedIn: loggedInuser.reducer,
+    employeeUnder: employeesUnder.reducer,
   },
 });
 
@@ -47,3 +63,6 @@ export const { addUser } = users.actions;
 export const { addTask } = tasks.actions;
 
 export const { addLoggedIn, removeLoggedIn } = loggedInuser.actions;
+
+export const { addDesiredEmployee, removeDesiredEmployee } =
+  employeesUnder.actions;

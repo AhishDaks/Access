@@ -4,9 +4,16 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { fetchUsers } from "../services/userdetails";
+import { fetchTask } from "../services/taskDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addUser, addLoggedIn } from "../store/store";
+import { filterDesiredUser } from "../services/filteringUsers";
+import {
+  addUser,
+  addLoggedIn,
+  addTask,
+  addDesiredEmployee,
+} from "../store/store";
 import Signup from "../subcomponent/Signup";
 export default function Login() {
   const [mail, setEmail] = useState("");
@@ -16,11 +23,13 @@ export default function Login() {
   const isLoggedIn = useSelector((state) => state.loggedIn);
   useEffect(() => {
     async function callFetch() {
-      const result = await fetchUsers();
-      Dispatch(addUser(result));
+      const userResult = await fetchUsers();
+      const taskResult = await fetchTask();
+      Dispatch(addUser(userResult));
+      Dispatch(addTask(taskResult));
     }
     callFetch();
-  }, [isLoggedIn]);
+  }, []);
 
   const Navigate = useNavigate();
   const users = useSelector((state) => state.user.data);
@@ -34,7 +43,15 @@ export default function Login() {
       setError(true);
     } else {
       setError(false);
+
       Dispatch(addLoggedIn(...t));
+      if (t[0].isManager === true) {
+        let employeesData = t[0].employees.map((a) =>
+          filterDesiredUser(users, a),
+        );
+
+        Dispatch(addDesiredEmployee(employeesData));
+      }
       Navigate(`/main/${t[0].id}`);
     }
   }

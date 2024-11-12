@@ -60,7 +60,6 @@ export default function Signup() {
     try {
       await addNewUser(apiPostData);
       const result = await fetchUsers();
-      result.push(apiPostData);
       Dispatch(addUser(result));
       setShow(
         <Alert

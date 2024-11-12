@@ -10,5 +10,18 @@ export async function fetchTask() {
       },
     },
   );
-  return res;
+  return res.data.data;
+}
+
+export async function addNewTask(apiPostData) {
+  await axios.post(
+    "https://free-ap-south-1.cosmocloud.io/development/api/taskdetails",
+    apiPostData,
+    {
+      headers: {
+        environmentId: "670e99ff59c9b368f802bb25",
+        projectid: "670e99ff59c9b368f802bb24",
+      },
+    },
+  );
 }

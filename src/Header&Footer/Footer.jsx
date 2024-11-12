@@ -8,6 +8,7 @@ export default function Footer() {
         justifyContent: "end",
         backgroundColor: "#4d79ff",
         textAlign: "end",
+        color: "#ebebe0",
       }}
     >
       <div>
