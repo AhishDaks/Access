@@ -46,8 +46,7 @@ export default function Signup() {
 
   async function newUser(e) {
     e.preventDefault();
-    setOpen(true);
-    setTimeout(() => setOpen(false), 3000);
+
     let randomId = Math.floor(Math.random() * 10000 - 1);
     let apiPostData = {
       name,
@@ -58,6 +57,7 @@ export default function Signup() {
       isManager: manager,
     };
     try {
+      setOpen(true);
       await addNewUser(apiPostData);
       const result = await fetchUsers();
       Dispatch(addUser(result));
@@ -66,20 +66,24 @@ export default function Signup() {
           icon={<CheckIcon fontSize="inherit" />}
           severity="success"
         >
-          successful
+          successfully added
         </Alert>,
       );
-      Dispatch(addLoggedIn(apiPostData));
-      Navigate(`main/${randomId}`);
+      setTimeout(() => {
+        setOpen(false);
+        Dispatch(addLoggedIn(apiPostData));
+        Navigate(`main/${randomId}`);
+      }, 2000);
     } catch {
       setShow(
         <Alert
           icon={<CheckIcon fontSize="inherit" />}
           severity="error"
         >
-          error in assigning
+          error in assigning,Age should be Number
         </Alert>,
       );
+      setTimeout(() => setOpen(false), 1000);
     }
   }
 
@@ -156,7 +160,7 @@ export default function Signup() {
                     display: "flex",
                     justifyContent: "center",
                     flexDirection: "column",
-                    marginTop: "40px",
+                    marginTop: "10px",
                   }}
                 >
                   <TextField

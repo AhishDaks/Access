@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
-
+import ToggleTask from "./ToggleTask";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import DetailsModal from "../Modal/ModalForTaskDesc";
-import "@fontsource/roboto/700.css";
 export default function TaskDetails() {
   const [open, setOpen] = useState();
   const { id } = useParams();
   const overAllTaskLists = useSelector((state) => state.task.taskData);
+  const isLoggedInManager = useSelector((state) => state.loggedIn);
 
   if (overAllTaskLists === null) {
     return (
@@ -85,7 +85,7 @@ export default function TaskDetails() {
         overflow: "auto",
       }}
     >
-      TASKS
+      {isLoggedInManager.isManager === true ? <ToggleTask /> : <p></p>}
       <div
         style={{
           display: "flex",
