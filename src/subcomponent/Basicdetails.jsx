@@ -41,7 +41,7 @@ export default function BasicDetails() {
             }}
           >
             <div>
-              <b>NAME</b>{" "}
+              <b>Name</b>{" "}
             </div>
             <div>{detailsPageUser[0].name}</div>
           </div>
@@ -54,7 +54,7 @@ export default function BasicDetails() {
             }}
           >
             <div>
-              <b>EMPLOYEE ID</b>{" "}
+              <b>Employee ID</b>{" "}
             </div>
             <div>{detailsPageUser[0].id}</div>
           </div>
@@ -67,7 +67,7 @@ export default function BasicDetails() {
             }}
           >
             <div>
-              <b>EMAIL</b>{" "}
+              <b>Email</b>{" "}
             </div>
             <div>{detailsPageUser[0].email}</div>
           </div>
@@ -80,7 +80,7 @@ export default function BasicDetails() {
             }}
           >
             <div>
-              <b>PASSWORD </b>
+              <b>Password </b>
             </div>
             <div>
               <b>*********</b>
@@ -95,7 +95,7 @@ export default function BasicDetails() {
             }}
           >
             <div>
-              <b>AGE</b>{" "}
+              <b>Age</b>{" "}
             </div>
             <div>{detailsPageUser[0].age}</div>
           </div>

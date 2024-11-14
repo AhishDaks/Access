@@ -39,6 +39,10 @@ export default function DetailsModal({ id, desc }) {
             <b>{desc.title.toUpperCase()}</b>
           </div>
           <div style={{ marginBottom: "10px" }}>
+            <b>ASSIGNED TO:</b>
+            {desc.assignedTo}
+          </div>
+          <div style={{ marginBottom: "10px" }}>
             <b>DESCRIPTION:</b>
             {desc.description}
           </div>

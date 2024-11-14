@@ -23,11 +23,6 @@ export default function Main() {
         style={{ width: "50%", backgroundColor: "	 #e6e6e6", display: "flex" }}
       >
         <TaskDetails />
-        {isLogged.isManager && parseInt(id) === isLogged.id ? (
-          <QuickLink />
-        ) : (
-          <div></div>
-        )}
       </div>
     </div>
   );

@@ -8,6 +8,10 @@ export default function TaskDetails() {
   const { id } = useParams();
   const overAllTaskLists = useSelector((state) => state.task.taskData);
   const isLoggedInManager = useSelector((state) => state.loggedIn);
+  let PageDataUser = true;
+  if (isLoggedInManager.employees) {
+    PageDataUser = isLoggedInManager.employees.includes(parseInt(id));
+  }
 
   if (overAllTaskLists === null) {
     return (
@@ -29,13 +33,22 @@ export default function TaskDetails() {
   const tasksList = overAllTaskLists.filter(
     (a) => a.assignedTo === parseInt(id),
   );
+  let overAllTasksforManager;
+  if (!PageDataUser) {
+    overAllTasksforManager = overAllTaskLists.filter((a) =>
+      isLoggedInManager.employees.includes(a.assignedTo),
+    );
+  }
   const listOftasks = tasksList.map((s) => (
     <div
       style={{
-        marginTop: "20px",
+        marginLeft: "0px",
+        marginRight: "10px",
+        marginBottom: "10px",
         display: "flex",
         justifyContent: "space-between",
-        border: "1px solid black",
+        border: "2px solid gray",
+        borderRadius: "5px",
         width: "100%",
         height: "auto",
         textAlign: "center",
@@ -81,22 +94,31 @@ export default function TaskDetails() {
         marginLeft: "10%",
         marginRight: "3%",
         width: "70%",
-        height: "440px",
+        overflowX: "hidden",
+        maxHeight: "490px",
         overflow: "auto",
+        border: "1px solid gray",
+        borderRadius: "5px",
       }}
     >
-      {isLoggedInManager.isManager === true ? <ToggleTask /> : <p></p>}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-
-          marginLeft: "10%",
-          marginRight: "10%",
-        }}
-      >
-        {listOftasks}
+      <div style={{ marginBottom: "20px" }}>
+        <b>Tasks</b>
       </div>
+      {PageDataUser === false ? (
+        <ToggleTask value={overAllTasksforManager} />
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+
+            marginLeft: "10%",
+            marginRight: "10%",
+          }}
+        >
+          {listOftasks}
+        </div>
+      )}
     </div>
   );
 }
