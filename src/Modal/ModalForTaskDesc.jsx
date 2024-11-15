@@ -38,23 +38,23 @@ export default function DetailsModal({ id, desc }) {
           <div style={{ marginBottom: "10px", textAlign: "center" }}>
             <b>{desc.title.toUpperCase()}</b>
           </div>
-          <div style={{ marginBottom: "10px" }}>
+          <div className="DescModal">
             <b>ASSIGNED TO:</b>
             {desc.assignedTo}
           </div>
-          <div style={{ marginBottom: "10px" }}>
+          <div className="DescModal">
             <b>DESCRIPTION:</b>
             {desc.description}
           </div>
-          <div style={{ marginBottom: "10px" }}>
+          <div className="DescModal">
             <b>ASSIGNED ON:</b>
             {desc.createdDate}
           </div>
-          <div style={{ marginBottom: "10px" }}>
+          <div className="DescModal">
             <b>DEADLINE :</b>
             {desc.dueDate}
           </div>
-          <div style={{ marginBottom: "10px" }}>
+          <div className="DescModal">
             <b>STATUS:</b>
             {desc.status}
           </div>

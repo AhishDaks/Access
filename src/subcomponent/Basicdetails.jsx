@@ -32,53 +32,25 @@ export default function BasicDetails() {
             justifyContent: "space-evenly",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginLeft: "30px",
-              marginRight: "30px",
-            }}
-          >
+          <div className="BasicDetails">
             <div>
               <b>Name</b>{" "}
             </div>
             <div>{detailsPageUser[0].name}</div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginLeft: "30px",
-              marginRight: "30px",
-            }}
-          >
+          <div className="BasicDetails">
             <div>
               <b>Employee ID</b>{" "}
             </div>
             <div>{detailsPageUser[0].id}</div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginLeft: "30px",
-              marginRight: "30px",
-            }}
-          >
+          <div className="BasicDetails">
             <div>
               <b>Email</b>{" "}
             </div>
             <div>{detailsPageUser[0].email}</div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginLeft: "30px",
-              marginRight: "30px",
-            }}
-          >
+          <div className="BasicDetails">
             <div>
               <b>Password </b>
             </div>
@@ -86,14 +58,7 @@ export default function BasicDetails() {
               <b>*********</b>
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginLeft: "30px",
-              marginRight: "30px",
-            }}
-          >
+          <div className="BasicDetails">
             <div>
               <b>Age</b>{" "}
             </div>

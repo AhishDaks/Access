@@ -27,6 +27,14 @@ export default function CreateTaskModal({ value }) {
   const employeesForCurrentLoggedIn = useSelector(
     (state) => state.employeeUnder,
   );
+
+  const [employee, setEmployee] = React.useState("");
+  const [taskTitle, setTaskTitle] = React.useState("");
+  const [taskDesc, setTaskDesc] = React.useState("");
+  let [dueDate, setDueDate] = React.useState("");
+  if (employeesForCurrentLoggedIn === null) {
+    return <div></div>;
+  }
   const dropDownEmployee = employeesForCurrentLoggedIn.map((a) => (
     <option
       value={[a._id, a.id]}
@@ -35,11 +43,6 @@ export default function CreateTaskModal({ value }) {
       {a.name}
     </option>
   ));
-  const [employee, setEmployee] = React.useState("");
-  const [taskTitle, setTaskTitle] = React.useState("");
-  const [taskDesc, setTaskDesc] = React.useState("");
-  let [dueDate, setDueDate] = React.useState("");
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   async function uploadNewTask(e) {
@@ -94,14 +97,7 @@ export default function CreateTaskModal({ value }) {
                   {dropDownEmployee}
                 </select>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  marginTop: "25px",
-                }}
-              >
+              <div className="ModalTask">
                 <div style={{ marginTop: "15px" }}>TASK TITLE:</div>
                 <TextField
                   id="outlined-basic"
@@ -110,14 +106,7 @@ export default function CreateTaskModal({ value }) {
                   onChange={(e) => setTaskTitle(e.target.value)}
                 />
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  marginTop: "25px",
-                }}
-              >
+              <div className="ModalTask">
                 <div style={{ marginTop: "15px" }}>TASK DESC:</div>
                 <TextField
                   required
@@ -126,14 +115,7 @@ export default function CreateTaskModal({ value }) {
                   onChange={(e) => setTaskDesc(e.target.value)}
                 />
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  marginTop: "25px",
-                }}
-              >
+              <div className="ModalTask">
                 <div style={{ marginTop: "15px", marginLeft: "2px" }}>
                   DUE DATE:
                 </div>

@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { filterDesiredUser } from "../services/filteringUsers";
+
 import { Button } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -24,7 +24,7 @@ export default function Coworkers() {
   const ManagerName = fetchDesiredUser.find(
     (a) => a.id === pageUserData[0].managerId,
   );
-  if (!isLoggedIn.managerId && !isLoggedIn.employees) {
+  if (!coWorkersList && !empUnderManager) {
     return (
       <div
         style={{
@@ -52,7 +52,6 @@ export default function Coworkers() {
       </div>
     );
   }
-  const detailsPageUser = filterDesiredUser(fetchDesiredUser, id);
 
   let employeesUnder;
 

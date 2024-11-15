@@ -18,6 +18,7 @@ import {
   addDesiredEmployee,
   addLoggedInTask,
   addCoWorker,
+  fetchnoManagerEmployee,
 } from "../store/store";
 import Signup from "../subcomponent/Signup";
 export default function Login() {
@@ -46,20 +47,25 @@ export default function Login() {
       (a) => a.email === mail && a.password === password,
     );
 
+    console.log(t);
+    const noMangerEmployees = userResult.filter(
+      (a) => a.managerId === null && !a.isManager,
+    );
+
+    Dispatch(fetchnoManagerEmployee(noMangerEmployees));
+
     if (!t.length) {
       setLoader(false);
       setError(true);
     } else {
       setTimeout(() => setLoader(false), 5000);
       setError(false);
-      const loggedInTasks = taskResult.filter((a) => a.assignedTo == t[0].id);
+      const loggedInTasks = taskResult.filter((a) => a.assignedTo === t[0].id);
 
       Dispatch(addLoggedIn(...t));
       Dispatch(addLoggedInTask(loggedInTasks));
       if (t[0].isManager === true) {
-        let employeesData = t[0].employees.map((a) =>
-          filterDesiredUser(userResult, a),
-        );
+        let employeesData = userResult.filter((a) => a.managerId === t[0].id);
 
         Dispatch(addDesiredEmployee(employeesData));
       } else {

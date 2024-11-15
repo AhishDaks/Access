@@ -57,7 +57,7 @@ const employeesUnder = createSlice({
   initialState: null,
   reducers: {
     addDesiredEmployee(state, action) {
-      let employeeData = action.payload.map((a) => a[0]);
+      let employeeData = action.payload;
       return employeeData;
     },
     removeDesiredEmployee(state, action) {
@@ -73,9 +73,24 @@ const coWorkers = createSlice({
     addCoWorker(state, action) {
       return action.payload;
     },
+    clearCoWorker(state, action) {
+      return null;
+    },
   },
 });
 
+const noManagerEmployees = createSlice({
+  name: "noManager",
+  initialState: null,
+  reducers: {
+    fetchnoManagerEmployee(state, action) {
+      return action.payload;
+    },
+    clearManagerEmployee(state, action) {
+      return null;
+    },
+  },
+});
 const store = configureStore({
   reducer: {
     user: users.reducer,
@@ -84,6 +99,7 @@ const store = configureStore({
     loggedInTask: loggedInuserTasks.reducer,
     employeeUnder: employeesUnder.reducer,
     coWorker: coWorkers.reducer,
+    noManagerEmployee: noManagerEmployees.reducer,
   },
 });
 
@@ -101,4 +117,7 @@ export const { addDesiredEmployee, removeDesiredEmployee } =
 export const { addLoggedInTask, removeLoggedInTask } =
   loggedInuserTasks.actions;
 
-export const { addCoWorker } = coWorkers.actions;
+export const { addCoWorker, clearCoWorker } = coWorkers.actions;
+
+export const { fetchnoManagerEmployee, clearManagerEmployee } =
+  noManagerEmployees.actions;

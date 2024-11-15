@@ -12,6 +12,7 @@ export default function TaskDetails() {
   if (isLoggedInManager.employees) {
     PageDataUser = isLoggedInManager.employees.includes(parseInt(id));
   }
+  console.log(PageDataUser, id);
 
   if (overAllTaskLists === null) {
     return (

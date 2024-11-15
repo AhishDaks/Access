@@ -2,12 +2,9 @@ import BasicDetails from "../subcomponent/Basicdetails";
 import Coworkers from "../subcomponent/Coworkers";
 import TaskDetails from "../subcomponent/TaskDetails";
 import "../styling/basic.css";
-import QuickLink from "../subcomponent/QuickLinks";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import QuickLink from "../Quick Links/QuickLinks";
+
 export default function Main() {
-  const { id } = useParams();
-  const isLogged = useSelector((state) => state.loggedIn);
   return (
     <div
       className="userDetails"
@@ -23,6 +20,7 @@ export default function Main() {
         style={{ width: "50%", backgroundColor: "	 #e6e6e6", display: "flex" }}
       >
         <TaskDetails />
+        <QuickLink />
       </div>
     </div>
   );

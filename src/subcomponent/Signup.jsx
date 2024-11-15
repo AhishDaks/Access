@@ -11,7 +11,7 @@ import Alert from "@mui/material/Alert";
 import CheckIcon from "@mui/icons-material/Check";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addLoggedIn, addUser } from "../store/store";
+import { addLoggedIn, addUser, fetchnoManagerEmployee } from "../store/store";
 export const Style = {
   position: "absolute",
   top: "50%",
@@ -61,6 +61,12 @@ export default function Signup() {
       await addNewUser(apiPostData);
       const result = await fetchUsers();
       Dispatch(addUser(result));
+      let loggedInData = result.filter((A) => A.id === randomId);
+      const noMangerEmployees = result.filter(
+        (a) => a.managerId === null && !a.isManager,
+      );
+
+      Dispatch(fetchnoManagerEmployee(noMangerEmployees));
       setShow(
         <Alert
           icon={<CheckIcon fontSize="inherit" />}
@@ -71,7 +77,7 @@ export default function Signup() {
       );
       setTimeout(() => {
         setOpen(false);
-        Dispatch(addLoggedIn(apiPostData));
+        Dispatch(addLoggedIn(...loggedInData));
         Navigate(`main/${randomId}`);
       }, 2000);
     } catch {

@@ -3,9 +3,10 @@ import ToggleButton from "@mui/material/ToggleButton";
 import { useSelector } from "react-redux";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import DetailsModal from "../Modal/ModalForTaskDesc";
+import { useState } from "react";
 export default function ToggleTask({ value }) {
-  const [alignment, setAlignment] = React.useState("myTasks");
-  const [detailsModal, setDetailsModal] = React.useState(false);
+  const [alignment, setAlignment] = useState("myTasks");
+  const [detailsModal, setDetailsModal] = useState(false);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };

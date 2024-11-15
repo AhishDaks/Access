@@ -25,3 +25,16 @@ export async function addNewUser(apiPostData) {
     },
   );
 }
+
+export async function updateUser(apiPostData, id) {
+  await axios.patch(
+    `https://free-ap-south-1.cosmocloud.io/development/api/userdetails/${id}`,
+    apiPostData,
+    {
+      headers: {
+        environmentId: "670e99ff59c9b368f802bb25",
+        projectid: "670e99ff59c9b368f802bb24",
+      },
+    },
+  );
+}

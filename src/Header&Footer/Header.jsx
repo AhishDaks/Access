@@ -15,6 +15,8 @@ import {
   removeDesiredEmployee,
   clearTask,
   clearUser,
+  clearCoWorker,
+  clearManagerEmployee,
 } from "../store/store";
 import Tooltip from "@mui/material/Tooltip";
 
@@ -49,6 +51,8 @@ export default function Header() {
     Dispatch(removeDesiredEmployee());
     Dispatch(removeLoggedIn());
     Dispatch(clearTask());
+    Dispatch(clearCoWorker());
+    Dispatch(clearManagerEmployee());
     Dispatch(clearUser());
     Navigate("/");
   }
