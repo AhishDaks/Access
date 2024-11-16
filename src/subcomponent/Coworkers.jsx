@@ -30,9 +30,10 @@ export default function Coworkers() {
         style={{
           width: "95%",
           height: "300px",
-          marginLeft: "5%",
+          marginLeft: "35px",
           marginTop: "50px",
-
+          border: "1px solid gray",
+          borderRadius: "5px",
           backgroundColor: "#f5f5f0",
         }}
       >
@@ -44,9 +45,10 @@ export default function Coworkers() {
               alignItems: "center",
               justifyContent: "center",
               padding: "130px",
+              fontSize: "large",
             }}
           >
-            Nothing to show
+            <b> No coworkers or employees under him</b>
           </div>
         </center>
       </div>
@@ -140,8 +142,7 @@ export default function Coworkers() {
     <div
       style={{
         width: "94%",
-        maxHeight: "185px",
-
+        height: "250px",
         overflowY: "auto",
         backgroundColor: " #f5f5f0",
         marginLeft: "5%",
@@ -192,7 +193,7 @@ export default function Coworkers() {
               flexDirection: "column",
               justifyContent: "space-between",
               marginTop: "3%",
-              height: "20%",
+              height: "150px",
             }}
           >
             <div>

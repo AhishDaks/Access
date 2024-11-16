@@ -47,7 +47,6 @@ export default function Login() {
       (a) => a.email === mail && a.password === password,
     );
 
-    console.log(t);
     const noMangerEmployees = userResult.filter(
       (a) => a.managerId === null && !a.isManager,
     );

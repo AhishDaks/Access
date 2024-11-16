@@ -12,22 +12,26 @@ export default function TaskDetails() {
   if (isLoggedInManager.employees) {
     PageDataUser = isLoggedInManager.employees.includes(parseInt(id));
   }
-  console.log(PageDataUser, id);
 
   if (overAllTaskLists === null) {
     return (
       <div
         style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           backgroundColor: "#f5f5f0",
+          border: "1px solid gray",
           marginTop: "13%",
           marginLeft: "10%",
           marginRight: "3%",
           borderRadius: "10px",
           width: "70%",
-          height: "450px",
+          height: "555px",
+          fontSize: "large",
         }}
       >
-        <b>NOTHING TO DISPLAY</b>
+        <b>No Tasks assigned </b>
       </div>
     );
   }
@@ -96,7 +100,7 @@ export default function TaskDetails() {
         marginRight: "3%",
         width: "70%",
         overflowX: "hidden",
-        maxHeight: "490px",
+        maxHeight: "555px",
         overflow: "auto",
         border: "1px solid gray",
         borderRadius: "5px",

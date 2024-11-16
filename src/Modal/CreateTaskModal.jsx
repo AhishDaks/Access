@@ -93,7 +93,6 @@ export default function CreateTaskModal({ value }) {
                   }}
                   onChange={(e) => setEmployee(e.target.value)}
                 >
-                  <option>Choose Employee</option>
                   {dropDownEmployee}
                 </select>
               </div>
