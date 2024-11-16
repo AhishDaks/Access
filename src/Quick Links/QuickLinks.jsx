@@ -72,7 +72,7 @@ export default function QuickLink() {
             value={<GrUpdate size="20" />}
             data={listOfNoManagerEmployees}
           />
-          <div>Update Employee</div>
+          <div>Add Employee</div>
         </div>
       </div>
     </div>
