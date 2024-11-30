@@ -13,101 +13,111 @@ export default function ToggleTask({ value }) {
 
   const managerTasks = useSelector((state) => state.loggedInTask);
 
-  const listManagerTasks = managerTasks.map((s) => (
-    <div
-      style={{
-        marginLeft: "20px",
-        marginRight: "10px",
-        marginBottom: "10px",
-        display: "flex",
-        justifyContent: "space-between",
-        border: "2px solid gray",
-        borderRadius: "5px",
-        width: "90%",
-        height: "auto",
-        textAlign: "center",
-      }}
-      key={s._id}
-    >
-      <div style={{ width: "50%", marginTop: "8px", marginBottom: "20px" }}>
-        {s.title}
-      </div>
-      <div
-        style={{
-          width: "50%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <b>{s.status}</b>
-        </div>
-
-        <div>
-          <DetailsModal
+  const listManagerTasks =
+    managerTasks !== null ? (
+      managerTasks.map((s) => (
+        <div
+          style={{
+            marginLeft: "20px",
+            marginRight: "10px",
+            marginBottom: "10px",
+            display: "flex",
+            justifyContent: "space-between",
+            border: "2px solid gray",
+            borderRadius: "5px",
+            width: "90%",
+            height: "auto",
+            textAlign: "center",
+          }}
+          key={s._id}
+        >
+          <div style={{ width: "50%", marginTop: "8px", marginBottom: "20px" }}>
+            {s.title}
+          </div>
+          <div
             style={{
-              height: "20px",
-              width: "80px",
-              backgroundColor: "#4d79ff",
-              color: "#ebebe0",
+              width: "50%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
-            onClick={(s) => setDetailsModal(s._id)}
-            id={s._id}
-            desc={s}
-          />
-        </div>
-      </div>
-    </div>
-  ));
+          >
+            <div>
+              <b>{s.status}</b>
+            </div>
 
-  const overAllTasks = value.map((s) => (
-    <div
-      style={{
-        marginLeft: "20px",
-        marginRight: "10px",
-        marginBottom: "10px",
-        display: "flex",
-        justifyContent: "space-between",
-        border: "2px solid gray",
-        borderRadius: "5px",
-        width: "90%",
-        height: "auto",
-        textAlign: "center",
-      }}
-      key={s._id}
-    >
-      <div style={{ width: "50%", marginTop: "8px", marginBottom: "20px" }}>
-        {s.title}
-      </div>
-      <div
-        style={{
-          width: "50%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <b>{s.status}</b>
+            <div>
+              <DetailsModal
+                style={{
+                  height: "20px",
+                  width: "80px",
+                  backgroundColor: "#4d79ff",
+                  color: "#ebebe0",
+                }}
+                onClick={(s) => setDetailsModal(s._id)}
+                id={s._id}
+                desc={s}
+              />
+            </div>
+          </div>
         </div>
+      ))
+    ) : (
+      <div style={{ color: "gray" }}>No Tasks Assigned</div>
+    );
 
-        <div>
-          <DetailsModal
+  const overAllTasks =
+    value !== null
+      ? value.map((s) => (
+          <div
             style={{
-              height: "20px",
-              width: "80px",
-              backgroundColor: "#4d79ff",
-              color: "#ebebe0",
+              marginLeft: "20px",
+              marginRight: "10px",
+              marginBottom: "10px",
+              display: "flex",
+              justifyContent: "space-between",
+              border: "2px solid gray",
+              borderRadius: "5px",
+              width: "90%",
+              height: "auto",
+              textAlign: "center",
             }}
-            onClick={(s) => setDetailsModal(s._id)}
-            id={s._id}
-            desc={s}
-          />
-        </div>
-      </div>
-    </div>
-  ));
+            key={s._id}
+          >
+            <div
+              style={{ width: "50%", marginTop: "8px", marginBottom: "20px" }}
+            >
+              {s.title}
+            </div>
+            <div
+              style={{
+                width: "50%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <b>{s.status}</b>
+              </div>
+
+              <div>
+                <DetailsModal
+                  style={{
+                    height: "20px",
+                    width: "80px",
+                    backgroundColor: "#4d79ff",
+                    color: "#ebebe0",
+                  }}
+                  onClick={(s) => setDetailsModal(s._id)}
+                  id={s._id}
+                  desc={s}
+                />
+              </div>
+            </div>
+          </div>
+        ))
+      : "no";
 
   return (
     <div>

@@ -17,6 +17,7 @@ import {
   clearUser,
   clearCoWorker,
   clearManagerEmployee,
+  removeLoggedInTask,
 } from "../store/store";
 import Tooltip from "@mui/material/Tooltip";
 
@@ -54,6 +55,7 @@ export default function Header() {
     Dispatch(clearCoWorker());
     Dispatch(clearManagerEmployee());
     Dispatch(clearUser());
+    Dispatch(removeLoggedInTask());
     Navigate("/");
   }
   const handleCloseModal = () => setOpenModal(false);

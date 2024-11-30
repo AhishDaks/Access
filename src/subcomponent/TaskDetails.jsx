@@ -8,10 +8,9 @@ export default function TaskDetails() {
   const { id } = useParams();
   const overAllTaskLists = useSelector((state) => state.task.taskData);
   const isLoggedInManager = useSelector((state) => state.loggedIn);
-  let PageDataUser = true;
-  if (isLoggedInManager.employees) {
-    PageDataUser = isLoggedInManager.employees.includes(parseInt(id));
-  }
+  let PageDataUser =
+    isLoggedInManager.employees !== null &&
+    !isLoggedInManager.employees.includes(parseInt(id));
 
   if (overAllTaskLists === null) {
     return (
@@ -38,12 +37,12 @@ export default function TaskDetails() {
   const tasksList = overAllTaskLists.filter(
     (a) => a.assignedTo === parseInt(id),
   );
-  let overAllTasksforManager;
-  if (!PageDataUser) {
-    overAllTasksforManager = overAllTaskLists.filter((a) =>
-      isLoggedInManager.employees.includes(a.assignedTo),
-    );
-  }
+  let overAllTasksforManager = isLoggedInManager.isManager
+    ? overAllTaskLists.filter((a) =>
+        isLoggedInManager.employees.includes(a.assignedTo),
+      )
+    : null;
+
   const listOftasks = tasksList.map((s) => (
     <div
       style={{
@@ -109,7 +108,7 @@ export default function TaskDetails() {
       <div style={{ marginBottom: "20px" }}>
         <b>Tasks</b>
       </div>
-      {PageDataUser === false ? (
+      {PageDataUser === true ? (
         <ToggleTask value={overAllTasksforManager} />
       ) : (
         <div

@@ -35,6 +35,7 @@ export default function CreateTaskModal({ value }) {
   if (employeesForCurrentLoggedIn === null) {
     return <div></div>;
   }
+
   const dropDownEmployee = employeesForCurrentLoggedIn.map((a) => (
     <option
       value={[a._id, a.id]}
@@ -43,6 +44,14 @@ export default function CreateTaskModal({ value }) {
       {a.name}
     </option>
   ));
+  dropDownEmployee.unshift(
+    <option
+      hidden
+      selected
+    >
+      Choose Employee
+    </option>,
+  );
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   async function uploadNewTask(e) {

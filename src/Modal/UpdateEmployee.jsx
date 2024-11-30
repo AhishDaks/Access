@@ -13,6 +13,7 @@ import {
   addDesiredEmployee,
   addUser,
   fetchnoManagerEmployee,
+  addLoggedIn,
 } from "../store/store";
 const style = {
   position: "absolute",
@@ -68,7 +69,8 @@ export default function UpdateEmployee({ value, data }) {
       );
       return;
     }
-    let existingEmployees = loggedIn.employees ? loggedIn.employees : [];
+    let existingEmployees =
+      loggedIn.employees === null ? [] : loggedIn.employees;
 
     await updateUser(
       { employees: [...existingEmployees, ...employeeId] },
@@ -101,10 +103,13 @@ export default function UpdateEmployee({ value, data }) {
         let employeesData = userResult.filter(
           (a) => a.managerId === loggedIn.id,
         );
+        let UpdatedLoggedInData = userResult.filter(
+          (a) => a.id === loggedIn.id,
+        );
         const noMangerEmployees = userResult.filter(
           (a) => a.managerId === null && !a.isManager,
         );
-
+        Dispatch(addLoggedIn(...UpdatedLoggedInData));
         Dispatch(fetchnoManagerEmployee(noMangerEmployees));
         Dispatch(addUser(userResult));
         Dispatch(addDesiredEmployee(employeesData));
