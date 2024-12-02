@@ -7,7 +7,6 @@ import { fetchUsers } from "../services/userdetails";
 import { fetchTask } from "../services/taskDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { filterDesiredUser } from "../services/filteringUsers";
 import "@fontsource/roboto/500.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";

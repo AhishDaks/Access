@@ -1,12 +1,15 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { filterDesiredUser } from "../services/filteringUsers";
-
+import { RiEditFill } from "react-icons/ri";
+import UpdatePassword from "../Modal/UpdatePassword";
 export default function BasicDetails() {
   const { id } = useParams();
   const fetchDesiredUser = useSelector((state) => state.user.data);
   const detailsPageUser = filterDesiredUser(fetchDesiredUser, id);
-
+  const loggedIn = useSelector((state) => state.loggedIn);
+  const editPasswordAllowance = detailsPageUser[0].id === loggedIn.id;
+  console.log(editPasswordAllowance);
   return (
     <div
       style={{
@@ -54,8 +57,25 @@ export default function BasicDetails() {
             <div>
               <b>Password </b>
             </div>
-            <div>
-              <b>*********</b>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                marginLeft: "470px",
+              }}
+            >
+              <div>*********</div>
+              {editPasswordAllowance ? (
+                <div>
+                  {" "}
+                  <UpdatePassword
+                    size="10px"
+                    value={<RiEditFill />}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <div className="BasicDetails">
