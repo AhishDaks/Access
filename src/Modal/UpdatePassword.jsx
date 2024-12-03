@@ -17,7 +17,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Backdrop from "@mui/material/Backdrop";
 import EnteringNewPasswordModal from "./EnteringNewPasswordModal";
-import ErrorIcon from "@mui/icons-material/Error";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -29,42 +29,23 @@ const style = {
   p: 4,
 };
 
-const style1 = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 430,
-  height: "180px",
-  bgcolor: "background.paper",
-  borderRadius: "10px",
-  p: 4,
-};
 export default function UpdatePassword({ value }) {
-  const [newPassword, SetnewPassword] = useState("");
   const [open, setOpen] = React.useState(false);
-  const [open1, setOpen1] = React.useState(false);
+
   const [password, setPassword] = useState("");
   const [progress, Setprogress] = useState(false);
   const [alertPassword, SetAlertPassword] = useState(false);
-  const [alertSamePassword, SetAlertSamePassword] = useState(false);
+
   const [changePassPage, SetchangePassPage] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleOpen1 = () => setOpen1(true);
-  const handleClose1 = () => {
-    setOpen1(false);
-    setOpen(false);
-    SetchangePassPage(false);
-    SetAlertSamePassword(false);
-  };
+
   const handleClose = () => {
     setOpen(false);
     SetAlertPassword(false);
     SetchangePassPage(false);
-    SetAlertSamePassword(false);
   };
   const [showPassword, setShowPassword] = React.useState(false);
-  const [showPassword1, setShowPassword1] = React.useState(false);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -74,15 +55,7 @@ export default function UpdatePassword({ value }) {
   const handleMouseUpPassword = (event) => {
     event.preventDefault();
   };
-  const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
 
-  const handleMouseDownPassword1 = (event) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword1 = (event) => {
-    event.preventDefault();
-  };
   const loggedInUser = useSelector((state) => state.loggedIn);
 
   const alertMessageWrongPassword = (
@@ -94,26 +67,6 @@ export default function UpdatePassword({ value }) {
     </Alert>
   );
 
-  const alertMessageIfSamePassword = (
-    <Alert
-      icon={<ErrorIcon fontSize="small" />}
-      severity="error"
-      style={{ marginTop: "0" }}
-    >
-      New password is same as old,try another!
-    </Alert>
-  );
-
-  function verifyNewPassword(e) {
-    e.preventDefault();
-
-    if (loggedInUser.password === newPassword) {
-      SetAlertSamePassword(true);
-    } else {
-      SetAlertSamePassword(false);
-    }
-  }
-
   function handlePasswordAuthenticate(e) {
     e.preventDefault();
     Setprogress(true);
@@ -124,7 +77,6 @@ export default function UpdatePassword({ value }) {
       setTimeout(() => {
         SetAlertPassword(false);
         SetchangePassPage(true);
-        handleOpen1();
       }, 2000);
     }
   }
@@ -142,91 +94,7 @@ export default function UpdatePassword({ value }) {
         {value}
       </Button>
       {changePassPage ? (
-        <Modal
-          open={open1}
-          onClose={handleClose1}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style1}>
-            <div>{alertSamePassword ? alertMessageIfSamePassword : ""}</div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginTop: "20px",
-              }}
-            >
-              <div
-                style={{ display: "flex", flexDirection: "row", width: "100%" }}
-              >
-                <div style={{ marginTop: "25px" }}>Enter new password</div>
-
-                <form onSubmit={verifyNewPassword}>
-                  <FormControl
-                    sx={{ m: 1, width: "25ch", marginLeft: "30px" }}
-                    variant="outlined"
-                    onChange={(e) => SetnewPassword(e.target.value)}
-                  >
-                    <InputLabel htmlFor="outlined-adornment-password">
-                      Password
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-password"
-                      type={showPassword1 ? "text" : "password"}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label={
-                              showPassword1
-                                ? "hide the password"
-                                : "display the password"
-                            }
-                            onClick={handleClickShowPassword1}
-                            onMouseDown={handleMouseDownPassword1}
-                            onMouseUp={handleMouseUpPassword1}
-                            edge="end"
-                          >
-                            {showPassword1 ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Password"
-                      required
-                    />
-                  </FormControl>
-                </form>
-              </div>
-              {newPassword ? (
-                <Button
-                  onClick={verifyNewPassword}
-                  variant="contained"
-                  style={{
-                    display: "flex",
-                    marginLeft: "40%",
-                    marginTop: "20px",
-                    width: "100px",
-                  }}
-                >
-                  Submit
-                </Button>
-              ) : (
-                <Button
-                  disabled
-                  variant="contained"
-                  style={{
-                    display: "flex",
-                    marginLeft: "40%",
-                    marginTop: "20px",
-                    width: "100px",
-                  }}
-                >
-                  Submit
-                </Button>
-              )}
-            </div>
-          </Box>
-        </Modal>
+        <EnteringNewPasswordModal closeModal={handleClose} />
       ) : (
         <Modal
           open={open}

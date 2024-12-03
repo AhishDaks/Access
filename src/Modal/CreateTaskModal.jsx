@@ -38,8 +38,8 @@ export default function CreateTaskModal({ value }) {
 
   const dropDownEmployee = employeesForCurrentLoggedIn.map((a) => (
     <option
-      value={[a._id, a.id]}
       key={a.id}
+      value={[a._id, a.id]}
     >
       {a.name}
     </option>

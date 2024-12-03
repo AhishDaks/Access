@@ -9,7 +9,7 @@ export default function BasicDetails() {
   const detailsPageUser = filterDesiredUser(fetchDesiredUser, id);
   const loggedIn = useSelector((state) => state.loggedIn);
   const editPasswordAllowance = detailsPageUser[0].id === loggedIn.id;
-  console.log(editPasswordAllowance);
+
   return (
     <div
       style={{

@@ -13,7 +13,7 @@ export default function QuickLink() {
   let listOfNoManagerEmployees;
   if (addEmployee !== null) {
     listOfNoManagerEmployees = addEmployee.map((a) => (
-      <div>
+      <div key={a.id}>
         <FormControlLabel
           label={a.name}
           control={
