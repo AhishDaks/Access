@@ -1,9 +1,11 @@
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import { GrUpdate } from "react-icons/gr";
-import CreateTaskModal from "../Modal/CreateTaskModal";
+import CreateTaskModal from "./CreateTaskModal";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import UpdateEmployee from "../Modal/UpdateEmployee";
+import UpdateEmployee from "./UpdateEmployee";
 import Checkbox from "@mui/material/Checkbox";
+import ReassigningTask from "./Reassig-Task";
+import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 import { useSelector } from "react-redux";
 
 export default function QuickLink() {
@@ -73,6 +75,19 @@ export default function QuickLink() {
             data={listOfNoManagerEmployees}
           />
           <div>Add Employee</div>
+        </div>
+      </div>
+      <div>
+        <div
+          style={{
+            marginTop: "20%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <ReassigningTask value={<TransferWithinAStationIcon />} />
+          <div>Reassign Task</div>
         </div>
       </div>
     </div>

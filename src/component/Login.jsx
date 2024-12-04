@@ -68,10 +68,11 @@ export default function Login() {
         Dispatch(addDesiredEmployee(employeesData));
       } else {
         let employeesData = userResult.filter(
-          (a) => a.managerId === t[0].managerId,
+          (a) => a.managerId === t[0].managerId && a._id !== t[0]._id,
         );
-
-        Dispatch(addCoWorker(employeesData));
+        if (employeesData.length) {
+          Dispatch(addCoWorker(employeesData));
+        }
       }
 
       Navigate(`/main/${t[0].id}`);

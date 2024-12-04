@@ -8,11 +8,9 @@ export default function Main() {
   return (
     <div
       className="userDetails"
-      style={{ height: `${window.innerHeight}px` }}
+      style={{ height: "100vh" }}
     >
-      <div
-        style={{ width: "50%", backgroundColor: "#e6e6e6", height: "100vh" }}
-      >
+      <div style={{ width: "50%", backgroundColor: "#e6e6e6", height: "90" }}>
         <BasicDetails />
         <Coworkers />
       </div>
