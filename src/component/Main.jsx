@@ -15,7 +15,12 @@ export default function Main() {
         <Coworkers />
       </div>
       <div
-        style={{ width: "50%", backgroundColor: "	 #e6e6e6", display: "flex" }}
+        style={{
+          width: "50%",
+          backgroundColor: "	 #e6e6e6",
+          display: "flex",
+          height: "90",
+        }}
       >
         <TaskDetails />
         <QuickLink />

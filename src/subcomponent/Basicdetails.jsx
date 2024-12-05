@@ -60,6 +60,7 @@ export default function BasicDetails() {
             <div
               style={{
                 display: "flex",
+                marginLeft: "120px",
               }}
             >
               <div>*******</div>
