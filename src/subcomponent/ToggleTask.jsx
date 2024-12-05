@@ -18,7 +18,7 @@ export default function ToggleTask({ value }) {
       managerTasks.map((s) => (
         <div
           style={{
-            marginLeft: "20px",
+            marginLeft: "auto",
             marginRight: "10px",
             marginBottom: "10px",
             display: "flex",
@@ -71,7 +71,7 @@ export default function ToggleTask({ value }) {
       ? value.map((s) => (
           <div
             style={{
-              marginLeft: "20px",
+              marginLeft: "auto",
               marginRight: "10px",
               marginBottom: "10px",
               display: "flex",
@@ -124,7 +124,7 @@ export default function ToggleTask({ value }) {
       <ToggleButtonGroup
         color="primary"
         value={alignment}
-        style={{ height: "30px", marginTop: "10px" }}
+        style={{ height: "auto", width: "auto", marginTop: "auto" }}
         exclusive
         onChange={handleChange}
         aria-label="Platform"

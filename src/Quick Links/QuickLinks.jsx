@@ -12,6 +12,7 @@ export default function QuickLink() {
   const isLoggedin = useSelector((state) => state.loggedIn);
   const employeeTasks = useSelector((state) => state.employeeUnder);
   const addEmployee = useSelector((state) => state.noManagerEmployee);
+  const tasks = useSelector((state) => state.task.taskData);
   let listOfNoManagerEmployees;
   if (addEmployee !== null) {
     listOfNoManagerEmployees = addEmployee.map((a) => (
@@ -78,17 +79,21 @@ export default function QuickLink() {
         </div>
       </div>
       <div>
-        <div
-          style={{
-            marginTop: "20%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <ReassigningTask value={<TransferWithinAStationIcon />} />
-          <div>Reassign Task</div>
-        </div>
+        {tasks !== null ? (
+          <div
+            style={{
+              marginTop: "20%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <ReassigningTask value={<TransferWithinAStationIcon />} />
+            <div>Reassign Task</div>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

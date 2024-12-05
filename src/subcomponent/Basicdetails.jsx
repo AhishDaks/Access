@@ -60,11 +60,9 @@ export default function BasicDetails() {
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-evenly",
-                marginLeft: "470px",
               }}
             >
-              <div>*********</div>
+              <div>*******</div>
               {editPasswordAllowance ? (
                 <div>
                   {" "}

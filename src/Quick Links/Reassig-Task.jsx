@@ -79,7 +79,7 @@ export default function ReassigningTask({ value }) {
       >
         <ReassignModal
           value={a.description}
-          currentyAssigned={a.assignedTo}
+          currentlyAssigned={a.assignedTo}
         />
       </div>
     </div>

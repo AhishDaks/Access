@@ -47,7 +47,7 @@ export default function Signup() {
   async function newUser(e) {
     e.preventDefault();
 
-    let randomId = Math.floor(Math.random() * 10000 - 1);
+    const randomId = Math.floor(Math.random() * 10000 - 1);
     let apiPostData = {
       name,
       password,
@@ -60,6 +60,7 @@ export default function Signup() {
       setOpen(true);
       await addNewUser(apiPostData);
       const result = await fetchUsers();
+
       Dispatch(addUser(result));
       let loggedInData = result.filter((A) => A.id === randomId);
       const noMangerEmployees = result.filter(
@@ -75,6 +76,7 @@ export default function Signup() {
           successfully added
         </Alert>,
       );
+
       setTimeout(() => {
         setOpen(false);
         Dispatch(addLoggedIn(...loggedInData));
