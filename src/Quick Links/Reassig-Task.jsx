@@ -78,7 +78,7 @@ export default function ReassigningTask({ value }) {
         }}
       >
         <ReassignModal
-          value={a.description}
+          value={a._id}
           currentlyAssigned={a.assignedTo}
         />
       </div>
@@ -102,7 +102,22 @@ export default function ReassigningTask({ value }) {
           >
             <b>TASKS INCOMPLETED IN DUETIME</b>
           </div>
-          {incompletedTasksListsForDisplaying}
+          {incompletedTasksListsForDisplaying.length ? (
+            incompletedTasksListsForDisplaying
+          ) : (
+            <div style={{ textAlign: "center", marginTop: "10px" }}>
+              No Overdue tasks right now!
+              <div>
+                <Button
+                  variant="contained"
+                  onClick={handleClose}
+                  style={{ marginTop: "15px", padding: "2px" }}
+                >
+                  Continue
+                </Button>
+              </div>
+            </div>
+          )}
         </Box>
       </Modal>
     </div>

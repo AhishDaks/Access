@@ -25,3 +25,16 @@ export async function addNewTask(apiPostData) {
     },
   );
 }
+
+export async function updateTask(taskId, apiPostData) {
+  await axios.patch(
+    `https://free-ap-south-1.cosmocloud.io/development/api/taskdetails/${taskId}`,
+    apiPostData,
+    {
+      headers: {
+        environmentId: "670e99ff59c9b368f802bb25",
+        projectid: "670e99ff59c9b368f802bb24",
+      },
+    },
+  );
+}
