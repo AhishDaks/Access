@@ -28,29 +28,18 @@ export default function ReassigningTask({ value }) {
   const tasks = useSelector((state) => state.task.taskData);
   const loggedIn = useSelector((state) => state.loggedIn);
   const employeesUnder = loggedIn.employees;
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
-  const currentDate = new Date().getDate();
+  const currentYear = new Date().getTime();
 
-  const incompletedTasks = tasks.filter((a) => {
-    if (employeesUnder.includes(a.assignedTo)) {
-      if (a.status !== "COMPLETED") {
-        let duedate = a.dueDate.split("-");
+  const loggedInTasks = tasks.filter((a) =>
+    employeesUnder.includes(a.assignedTo),
+  );
 
-        if (parseInt(duedate[2]) <= currentYear) {
-          if (parseInt(duedate[1]) < currentMonth) {
-            return a;
-          } else if (parseInt(duedate[1]) === currentMonth) {
-            if (parseInt(duedate[0]) < currentDate) {
-              return a;
-            }
-          }
-        }
-      }
-    }
-  });
+  const overDueTasks = loggedInTasks.filter(
+    (a) =>
+      a.status !== "COMPLETED" && new Date(a.dueDate).getTime() < currentYear,
+  );
 
-  const incompletedTasksListsForDisplaying = incompletedTasks.map((a) => (
+  const incompletedTasksListsForDisplaying = overDueTasks.map((a) => (
     <div
       style={{
         display: "flex",
@@ -79,6 +68,7 @@ export default function ReassigningTask({ value }) {
       >
         <ReassignModal
           value={a._id}
+          modalClose={handleClose}
           currentlyAssigned={a.assignedTo}
         />
       </div>

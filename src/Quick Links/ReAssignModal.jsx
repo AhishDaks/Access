@@ -31,7 +31,11 @@ const style = {
   p: 4,
 };
 
-export default function ReassignModal({ value, currentlyAssigned }) {
+export default function ReassignModal({
+  value,
+  currentlyAssigned,
+  modalClose,
+}) {
   const [open, setOpen] = useState(false);
 
   let [newDueDate, setNewDueDate] = useState("");
@@ -71,6 +75,13 @@ export default function ReassignModal({ value, currentlyAssigned }) {
   const newAssigningEmployeeList = currentlyAssignedTaskEmployee.map((a) => {
     return <MenuItem value={a.id}>{a.name}</MenuItem>;
   });
+
+  async function handleRecentChanges(e) {
+    e.preventDefault();
+    const newTasks = await fetchTask();
+    Dispatch(addTask(newTasks));
+    modalClose();
+  }
 
   function handleChangeEmployee(e) {
     e.preventDefault();
@@ -130,8 +141,6 @@ export default function ReassignModal({ value, currentlyAssigned }) {
         );
         handleCloseProgress();
         setSuccessButton(true);
-        const newTasks = await fetchTask();
-        Dispatch(addTask(newTasks));
       })
       .catch(() => {
         setAlertMsg(
@@ -140,6 +149,7 @@ export default function ReassignModal({ value, currentlyAssigned }) {
         handleCloseProgress();
       });
   }
+
   return (
     <div>
       <Button onClick={handleOpen}>Assign</Button>
@@ -150,99 +160,108 @@ export default function ReassignModal({ value, currentlyAssigned }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {alertMsg}
-          {successButton === true ? (
-            <Button
-              style={{ marginTop: "40px", marginLeft: "150px" }}
-              variant="contained"
-              onClick={handleClose}
-            >
-              Continue
-            </Button>
+          {!currentlyAssignedTaskEmployee.length ? (
+            <div>No Employee is available to reassign Task</div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-              >
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+            <div>
+              {alertMsg}
+              {successButton ? (
+                <Button
+                  style={{ marginTop: "40px", marginLeft: "150px" }}
+                  variant="contained"
+                  onClick={handleRecentChanges}
                 >
-                  <div>Assigned To:</div>
-                  <div>{currentlyAssigned}</div>
-                </div>
-              </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: "35px",
-                }}
-              >
-                <div style={{ marginTop: "22px" }}>Choose new Employee</div>
-                <FormControl
-                  sx={{ m: 1, minWidth: 180 }}
-                  onSubmit={handleChangeEmployee}
-                >
-                  <InputLabel id="demo-simple-select-autowidth-label">
-                    Name
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={name}
-                    label="Name"
-                    onChange={handleChange}
-                  >
-                    {newAssigningEmployeeList}
-                  </Select>
-                </FormControl>
-              </div>
-              <div style={{ display: "flex", width: "100%" }}>
-                <div style={{ marginTop: "10px", width: "50%" }}>
-                  New Due Date
-                </div>
-                <div style={{ width: "50%" }}>
-                  <input
-                    type="date"
-                    style={{
-                      width: "178px",
-                      height: "55px",
-                      border: "1px solid ",
-                      borderRadius: "5px",
-                      marginLeft: "12px",
-                    }}
-                    onChange={(e) => setNewDueDate(e.target.value)}
-                  />
-                </div>
-              </div>
-              {name && newDueDate.length >= 1 ? (
-                <div>
-                  <Button
-                    onClick={handleChangeEmployee}
-                    style={{
-                      width: "80px",
-                      marginLeft: "35%",
-                      marginTop: "30px",
-                    }}
-                    variant="contained"
-                  >
-                    Submit
-                  </Button>
-                  <Backdrop
-                    sx={(theme) => ({
-                      color: "#fff",
-                      zIndex: theme.zIndex.drawer + 1,
-                    })}
-                    open={openProgress}
-                    onClick={handleCloseProgress}
-                  >
-                    <CircularProgress color="inherit" />
-                  </Backdrop>
-                </div>
+                  Continue
+                </Button>
               ) : (
-                <Button disabled>Submit</Button>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>Assigned To:</div>
+                      <div>{currentlyAssigned}</div>
+                    </div>
+                  </Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginTop: "35px",
+                    }}
+                  >
+                    <div style={{ marginTop: "22px" }}>Choose new Employee</div>
+                    <FormControl
+                      sx={{ m: 1, minWidth: 180 }}
+                      onSubmit={handleChangeEmployee}
+                    >
+                      <InputLabel id="demo-simple-select-autowidth-label">
+                        Name
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-autowidth-label"
+                        id="demo-simple-select-autowidth"
+                        value={name}
+                        label="Name"
+                        onChange={handleChange}
+                      >
+                        {newAssigningEmployeeList}
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div style={{ display: "flex", width: "100%" }}>
+                    <div style={{ marginTop: "10px", width: "50%" }}>
+                      New Due Date
+                    </div>
+                    <div style={{ width: "50%" }}>
+                      <input
+                        type="date"
+                        style={{
+                          width: "178px",
+                          height: "55px",
+                          border: "1px solid ",
+                          borderRadius: "5px",
+                          marginLeft: "12px",
+                        }}
+                        onChange={(e) => setNewDueDate(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  {name && newDueDate.length >= 1 ? (
+                    <div>
+                      <Button
+                        onClick={handleChangeEmployee}
+                        style={{
+                          width: "80px",
+                          marginLeft: "35%",
+                          marginTop: "30px",
+                        }}
+                        variant="contained"
+                      >
+                        Submit
+                      </Button>
+                      <Backdrop
+                        sx={(theme) => ({
+                          color: "#fff",
+                          zIndex: theme.zIndex.drawer + 1,
+                        })}
+                        open={openProgress}
+                        onClick={handleCloseProgress}
+                      >
+                        <CircularProgress color="inherit" />
+                      </Backdrop>
+                    </div>
+                  ) : (
+                    <Button disabled>Submit</Button>
+                  )}
+                </div>
               )}
             </div>
           )}
