@@ -8,6 +8,15 @@ import { fetchTask } from "../services/taskDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "@fontsource/roboto/500.css";
+import IconButton from "@mui/material/IconButton";
+
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import Backdrop from "@mui/material/Backdrop";
 import {
@@ -28,7 +37,17 @@ export default function Login() {
   const [loader, setLoader] = useState(false);
   const Dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loggedIn);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event) => {
+    event.preventDefault();
+  };
   const Navigate = useNavigate();
 
   async function Authentication(e) {
@@ -149,12 +168,39 @@ export default function Login() {
                     <div>
                       <RiLockPasswordFill className="loginIcon" />
                     </div>
-                    <TextField
+
+                    <FormControl
                       required
-                      type="password"
-                      label="Password"
+                      sx={{ m: 1, width: "23.5ch" }}
+                      variant="outlined"
                       onChange={(e) => setPassword(e.target.value)}
-                    />
+                    >
+                      <InputLabel htmlFor="outlined-adornment-password">
+                        Password
+                      </InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              onMouseUp={handleMouseUpPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Password"
+                      />
+                    </FormControl>
                   </div>
                   <br></br>
                   <Button

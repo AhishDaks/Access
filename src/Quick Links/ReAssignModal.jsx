@@ -33,7 +33,7 @@ const style = {
 
 export default function ReassignModal({ value, currentlyAssigned }) {
   const [open, setOpen] = useState(false);
-  const [dueDateOk, setDueDateOk] = useState(true);
+
   let [newDueDate, setNewDueDate] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
   const [successButton, setSuccessButton] = useState(false);
@@ -51,7 +51,7 @@ export default function ReassignModal({ value, currentlyAssigned }) {
   const [name, setName] = useState("");
   const handleClose = () => {
     setOpen(false);
-    setDueDateOk(true);
+
     setAlertMsg("");
     setName("");
     setNewDueDate("");
@@ -81,42 +81,39 @@ export default function ReassignModal({ value, currentlyAssigned }) {
 
     const newDue = `${newDueDate}`.split("-").reverse().join("-");
     const apiPostData = { assignedTo: name, dueDate: newDue };
-    console.log(apiPostData, currentDate);
+
     if (parseInt(currentDate.split("-")[2]) < parseInt(newDue.split("-")[2])) {
-      setDueDateOk(true);
     } else if (
       parseInt(currentDate.split("-")[2]) === parseInt(newDue.split("-")[2])
     ) {
       if (
         parseInt(currentDate.split("-")[1]) < parseInt(newDue.split("-")[1])
       ) {
-        setDueDateOk(true);
       } else if (
         parseInt(currentDate.split("-")[1]) === parseInt(newDue.split("-")[1])
       ) {
         if (
           parseInt(currentDate.split("-")[0]) < parseInt(newDue.split("-")[0])
         ) {
-          setDueDateOk(true);
         } else {
           setAlertMsg(
             <Alert severity="error">Due Date should be an upcoming Date</Alert>,
           );
-          setDueDateOk(false);
+
           return;
         }
       } else {
         setAlertMsg(
           <Alert severity="error">Due Date should be an upcoming Date</Alert>,
         );
-        setDueDateOk(false);
+
         return;
       }
     } else {
       setAlertMsg(
         <Alert severity="error">Due Date should be an upcoming Date</Alert>,
       );
-      setDueDateOk(false);
+
       return;
     }
 
