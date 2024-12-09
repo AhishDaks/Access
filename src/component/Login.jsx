@@ -137,18 +137,11 @@ export default function Login() {
             <div className="login">
               <form onSubmit={(e) => Authentication(e, mail, password)}>
                 <div className="loginform">
-                  <div
-                    style={{
-                      marginLeft: "38%",
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "auto",
-                    }}
-                  >
+                  <div className="WelcomeMsg">
                     <b>WELCOME</b>
                   </div>
                   {error && (
-                    <p style={{ textAlign: "center", color: "red" }}>
+                    <p className="ErrorWrongLogIn">
                       <b>Invalid Username or password</b>
                     </p>
                   )}

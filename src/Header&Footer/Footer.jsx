@@ -1,16 +1,8 @@
 import { BiSolidCopyright } from "react-icons/bi";
-
+import "../styling/basic.css";
 export default function Footer() {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "end",
-        backgroundColor: "#4d79ff",
-        textAlign: "end",
-        color: "#ebebe0",
-      }}
-    >
+    <div className="Footer">
       <div>
         {" "}
         <BiSolidCopyright

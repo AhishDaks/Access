@@ -9,6 +9,7 @@ import { addTask } from "../store/store";
 import { useSelector } from "react-redux";
 import { addNewTask } from "../services/taskDetails";
 import { fetchTask } from "../services/taskDetails";
+import { useState } from "react";
 const style = {
   position: "absolute",
   top: "50%",
@@ -31,6 +32,8 @@ export default function CreateTaskModal({ value }) {
   const [employee, setEmployee] = React.useState("");
   const [taskTitle, setTaskTitle] = React.useState("");
   const [taskDesc, setTaskDesc] = React.useState("");
+  const [alert, setAlert] = useState("");
+
   let [dueDate, setDueDate] = React.useState("");
   if (employeesForCurrentLoggedIn === null) {
     return <div></div>;
@@ -52,14 +55,27 @@ export default function CreateTaskModal({ value }) {
       Choose Employee
     </option>,
   );
+
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setAlert("");
+  };
   async function uploadNewTask(e) {
     e.preventDefault();
     dueDate = `${dueDate.split("-").reverse().join("-")}`;
     const currentDate = `${new Date().getDate()}-${
       new Date().getMonth() + 1
     }-${new Date().getFullYear()}`;
+    console.log(employee);
+    if (!employee.length) {
+      setAlert(
+        <p style={{ color: "red", textAlign: "center", fontStyle: "bold" }}>
+          Please select an employee
+        </p>,
+      );
+      return;
+    }
     let apiPostData = {
       title: taskTitle,
       description: taskDesc,
@@ -84,6 +100,7 @@ export default function CreateTaskModal({ value }) {
       >
         <Box sx={style}>
           <div style={{ display: "flex", flexDirection: "column" }}>
+            {alert}
             <form onSubmit={uploadNewTask}>
               <div
                 style={{
