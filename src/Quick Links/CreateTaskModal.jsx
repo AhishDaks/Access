@@ -33,11 +33,20 @@ export default function CreateTaskModal({ value }) {
   const [taskTitle, setTaskTitle] = React.useState("");
   const [taskDesc, setTaskDesc] = React.useState("");
   const [alert, setAlert] = useState("");
-
+  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState("");
   let [dueDate, setDueDate] = React.useState("");
   if (employeesForCurrentLoggedIn === null) {
     return <div></div>;
   }
+  console.log(employee, employee.length);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setEmployee("");
+    setOpen(false);
+    setSuccess(false);
+    setAlert("");
+  };
 
   const dropDownEmployee = employeesForCurrentLoggedIn.map((a) => (
     <option
@@ -49,18 +58,35 @@ export default function CreateTaskModal({ value }) {
   ));
   dropDownEmployee.unshift(
     <option
+      key={null}
       hidden
-      selected
+      defaultValue={null}
     >
       Choose Employee
     </option>,
   );
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    setAlert("");
-  };
+  const successMessage = (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ color: "green", textAlign: "center" }}>
+        Successfully Task is Added!
+      </div>
+      <Button
+        style={{
+          padding: "3px",
+          width: "80px",
+          marginTop: "20px",
+          marginLeft: "160px",
+        }}
+        variant="contained"
+        color="success"
+        onClick={handleClose}
+      >
+        Continue
+      </Button>
+    </div>
+  );
+
   async function uploadNewTask(e) {
     e.preventDefault();
     dueDate = `${dueDate.split("-").reverse().join("-")}`;
@@ -68,7 +94,7 @@ export default function CreateTaskModal({ value }) {
       new Date().getMonth() + 1
     }-${new Date().getFullYear()}`;
     console.log(employee);
-    if (!employee.length) {
+    if (employee.length <= 0) {
       setAlert(
         <p style={{ color: "red", textAlign: "center", fontStyle: "bold" }}>
           Please select an employee
@@ -87,7 +113,7 @@ export default function CreateTaskModal({ value }) {
     await addNewTask(apiPostData);
     let updatedtasks = await fetchTask();
     Dispatch(addTask(updatedtasks));
-    handleClose();
+    setSuccess(true);
   }
   return (
     <div>
@@ -99,75 +125,79 @@ export default function CreateTaskModal({ value }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {alert}
-            <form onSubmit={uploadNewTask}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                }}
-              >
-                <div style={{ marginTop: "15px" }}> ASSIGN TO:</div>
-                <select
+          {success ? (
+            successMessage
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {alert}
+              <form onSubmit={uploadNewTask}>
+                <div
                   style={{
-                    width: "210px",
-                    height: "57px",
-                    border: "1px solid gray",
-                    borderRadius: "5px",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
                   }}
-                  onChange={(e) => setEmployee(e.target.value)}
                 >
-                  {dropDownEmployee}
-                </select>
-              </div>
-              <div className="ModalTask">
-                <div style={{ marginTop: "15px" }}>TASK TITLE:</div>
-                <TextField
-                  id="outlined-basic"
-                  variant="outlined"
-                  required
-                  onChange={(e) => setTaskTitle(e.target.value)}
-                />
-              </div>
-              <div className="ModalTask">
-                <div style={{ marginTop: "15px" }}>TASK DESC:</div>
-                <TextField
-                  required
-                  id="outlined-basic"
-                  variant="outlined"
-                  onChange={(e) => setTaskDesc(e.target.value)}
-                />
-              </div>
-              <div className="ModalTask">
-                <div style={{ marginTop: "15px", marginLeft: "2px" }}>
-                  DUE DATE:
-                </div>
-                <div>
-                  <input
-                    required
-                    type="date"
+                  <div style={{ marginTop: "15px" }}> ASSIGN TO:</div>
+                  <select
                     style={{
                       width: "210px",
                       height: "57px",
                       border: "1px solid gray",
                       borderRadius: "5px",
-                      marginLeft: "10px",
                     }}
-                    onChange={(e) => setDueDate(e.target.value)}
+                    onChange={(e) => setEmployee(e.target.value)}
+                  >
+                    {dropDownEmployee}
+                  </select>
+                </div>
+                <div className="ModalTask">
+                  <div style={{ marginTop: "15px" }}>TASK TITLE:</div>
+                  <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    required
+                    onChange={(e) => setTaskTitle(e.target.value)}
                   />
                 </div>
-              </div>
-              <Button
-                style={{ marginLeft: "150px", marginTop: "20px" }}
-                type="submit"
-                variant="contained"
-              >
-                Submit
-              </Button>
-            </form>
-          </div>
+                <div className="ModalTask">
+                  <div style={{ marginTop: "15px" }}>TASK DESC:</div>
+                  <TextField
+                    required
+                    id="outlined-basic"
+                    variant="outlined"
+                    onChange={(e) => setTaskDesc(e.target.value)}
+                  />
+                </div>
+                <div className="ModalTask">
+                  <div style={{ marginTop: "15px", marginLeft: "2px" }}>
+                    DUE DATE:
+                  </div>
+                  <div>
+                    <input
+                      required
+                      type="date"
+                      style={{
+                        width: "210px",
+                        height: "57px",
+                        border: "1px solid gray",
+                        borderRadius: "5px",
+                        marginLeft: "10px",
+                      }}
+                      onChange={(e) => setDueDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <Button
+                  style={{ marginLeft: "150px", marginTop: "20px" }}
+                  type="submit"
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </form>
+            </div>
+          )}
         </Box>
       </Modal>
     </div>

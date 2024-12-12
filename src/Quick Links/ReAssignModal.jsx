@@ -73,7 +73,14 @@ export default function ReassignModal({
   );
 
   const newAssigningEmployeeList = currentlyAssignedTaskEmployee.map((a) => {
-    return <MenuItem value={a.id}>{a.name}</MenuItem>;
+    return (
+      <MenuItem
+        key={a.id}
+        value={a.id}
+      >
+        {a.name}
+      </MenuItem>
+    );
   });
 
   async function handleRecentChanges(e) {

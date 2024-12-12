@@ -49,6 +49,7 @@ export default function ReassigningTask({ value }) {
         borderRadius: "5px",
         marginBottom: "5px",
       }}
+      key={a._id}
     >
       <div
         style={{
