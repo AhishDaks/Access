@@ -72,10 +72,6 @@ export default function UpdateEmployee({ value, data }) {
     let existingEmployees =
       loggedIn.employees === null ? [] : loggedIn.employees;
 
-    await updateUser(
-      { employees: [...existingEmployees, ...employeeId] },
-      loggedIn._id,
-    );
     let apipatch = [];
     let update = Object.values(idUpdation);
     for (let i = 0; i < update.length; i++) {
@@ -89,6 +85,10 @@ export default function UpdateEmployee({ value, data }) {
 
     Promise.all(apipatch)
       .then(async () => {
+        await updateUser(
+          { employees: [...existingEmployees, ...employeeId] },
+          loggedIn._id,
+        );
         setAlert(
           <Alert
             icon={<CheckIcon fontSize="inherit" />}

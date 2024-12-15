@@ -8,11 +8,16 @@ export default function TaskDetails() {
   const { id } = useParams();
   const overAllTaskLists = useSelector((state) => state.task.taskData);
   const isLoggedInManager = useSelector((state) => state.loggedIn);
+
+  const pageUserTasks = overAllTaskLists.filter(
+    (a) => a.assignedTo === parseInt(id),
+  );
+
   let PageDataUser =
     isLoggedInManager.employees !== null &&
     !isLoggedInManager.employees.includes(parseInt(id));
 
-  if (overAllTaskLists === null) {
+  if (overAllTaskLists === null || !pageUserTasks.length) {
     return (
       <div
         style={{
